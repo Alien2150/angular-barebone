@@ -1,0 +1,24 @@
+{
+  "paths": {
+    "styles": {
+      "app": ["app/styles/*.scss"],
+      "watch": ["app/styles/**/*.scss"],
+      "dist": "dist/styles"
+    },
+    "typescript": {
+      "app": "app/scripts",
+      "watch": ["app/scripts/**/*.ts"],
+      "dist": "dist/scripts"
+    },
+    "images": {
+      "app": ["app/images/**/*"],
+      "watch": ["app/images/**/*"],
+      "dist": "dist/images"
+    },
+    "templates": {
+      "app": ["app/templates/**/*.html"],
+      "watch": ["app/templates/**/*.html"],
+      "dist": "dist/scripts"
+    }
+  }
+}

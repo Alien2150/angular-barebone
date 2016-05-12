@@ -1,0 +1,64 @@
+{
+  "name": "angular-barebone",
+  "main": "gulpfile.js",
+  "author": [
+    "Karl Merkli <k.merkli@eslgaming.com>"
+  ],
+  "scripts": {
+    "postinstall": "node_modules/.bin/typings install"
+  },
+  "browserify-shim": {
+    "angular": "global:angular"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "dependencies": {
+    "angular": "^1.5.3"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.5.5",
+    "autoprefixer": "^6.2.1",
+    "browser-sync": "^2.2.1",
+    "browserify": "^13.0.0",
+    "browserify-shim": "^3.8.12",
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-clean-css": "^2.0.3",
+    "gulp-htmlmin": "^1.3.0",
+    "gulp-if": "^1.2.5",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-load-plugins": "^0.8.0",
+    "gulp-newer": "^1.1.0",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-ngdocs": "^0.2.13",
+    "gulp-plumber": "^1.0.1",
+    "gulp-postcss": "^6.0.1",
+    "gulp-sass": "^2.1.1",
+    "gulp-size": "^2.0.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-strip-line": "0.0.1",
+    "gulp-tslint": "^5.0.0",
+    "gulp-tslint-stylish": "^1.1.1",
+    "gulp-typescript": "^2.13.0",
+    "gulp-uglify": "^1.5.3",
+    "merge-stream": "^1.0.0",
+    "postcss": "^5.0.14",
+    "postcss-reporter": "^1.3.1",
+    "postcss-scss": "^0.1.3",
+    "postcss-zindex": "^2.1.1",
+    "promise": "^7.1.1",
+    "run-sequence": "^1.1.0",
+    "stylelint": "^4.2.0",
+    "stylelint-selector-bem-pattern": "^0.2.1",
+    "tsify": "^0.15.2",
+    "tslint": "^3.8.1",
+    "typescript": "^1.8.10",
+    "typings": "^0.8.1",
+    "vinyl-source-buffer": "^1.1.1",
+    "watchify": "^3.7.0"
+  }
+}
