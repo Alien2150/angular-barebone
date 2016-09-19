@@ -7,6 +7,11 @@
     },
     "typescript": {
       "app": "app/scripts",
+      "vendor": [
+        "node_modules/core-js/client/shim.min.js",
+        "node_modules/zone.js/dist/zone.js",
+        "node_modules/reflect-metadata/Reflect.js"
+      ],
       "watch": ["app/scripts/**/*.ts"],
       "dist": "dist/scripts"
     },
@@ -14,11 +19,6 @@
       "app": ["app/images/**/*"],
       "watch": ["app/images/**/*"],
       "dist": "dist/images"
-    },
-    "templates": {
-      "app": ["app/templates/**/*.html"],
-      "watch": ["app/templates/**/*.html"],
-      "dist": "dist/scripts"
     }
   }
 }

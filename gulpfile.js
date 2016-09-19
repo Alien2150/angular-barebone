@@ -33,7 +33,7 @@ var $ = require('gulp-load-plugins')();
 //////////////////////////////////////////
 
 gulp.task('clean', function () {
-    return del.sync(['dist/*', '!dist/.git'], {dot: true});
+    return del.sync(['public/*', '!public/.git'], {dot: true});
 });
 
 //////////////////////////////////////////
@@ -83,51 +83,25 @@ gulp.task('styles', ['styles:lint'], function () {
 });
 
 //////////////////////////////////////////
-/// HTML
-//////////////////////////////////////////
-gulp.task('templates', function () {
-    return gulp.src(config.paths.templates.app)
-        .pipe($.plumber())
-        .pipe($.htmlmin({
-            removeComments: true,
-            collapseWhitespace: true,
-            collapseBooleanAttributes: true,
-            removeAttributeQuotes: true,
-            removeRedundantAttributes: true,
-            removeScriptTypeAttributes: true,
-            removeStyleLinkTypeAttributes: true,
-            removeOptionalTags: true
-        }))
-        .pipe($.angularTemplatecache({
-            module: 'example',
-            standalone: false,
-            transformUrl: function(url) {
-                return 'example/' + url
-            }
-        }))
-        .pipe(gulp.dest(config.paths.templates.dist))
-        .pipe($.size({title: 'templates'}));
-});
-
-//////////////////////////////////////////
 /// JavaScript
 //////////////////////////////////////////
 
 gulp.task('typescript', ['scripts:lint'], function () {
-    return browserify()
-        .add(config.paths.typescript.app + '/app.ts')
-        .external('angular')
-        .plugin(tsify, {
-            experimentalDecorators: true
-        })
+    var bundler = browserify({debug: true})
+        .add(config.paths.typescript.app + '/main.ts')
+        .plugin(tsify, require('./tsconfig.json').compilerOptions)
         .bundle()
         .on('error', function (error) { console.error(error.toString()); })
         .pipe($.plumber())
         .pipe(buffer('angular.js'))
-        .pipe($.ngAnnotate())
-        .pipe($.uglify())
+        //.pipe($.uglify())
         .pipe(gulp.dest(config.paths.typescript.dist))
         .pipe($.size({title: 'typescript'}));
+
+    var files = gulp.src(config.paths.typescript.vendor)
+        .pipe(gulp.dest(config.paths.typescript.dist));
+
+    return mergeStream(bundler, files);
 });
 
 //////////////////////////////////////////
@@ -153,16 +127,15 @@ gulp.task('images', function () {
 gulp.task('watch', function () {
     browserSync({
         notify: false,
-        server: ['./']
+        proxy: "localhost:9000"
     });
 
     gulp.watch(config.paths.typescript.watch, ['typescript', reload]);
     gulp.watch(config.paths.styles.watch, ['styles', reload]);
-    gulp.watch(config.paths.templates.watch, ['templates', reload]);
     gulp.watch(config.paths.images.watch, ['images', reload]);
-    gulp.watch('index.html', reload);
+    gulp.watch('app/views/**/*.html', reload);
 });
 
 gulp.task('default', ['clean'], function () {
-    sequence(['templates', 'typescript', 'styles', 'images']);
+    sequence(['typescript', 'styles', 'images']);
 });
